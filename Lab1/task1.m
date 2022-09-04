@@ -14,7 +14,7 @@ path = "out/";
 %% Sim and save img
 for k = K_oc_arr
     [time, y] = start_sim(k, 2);
-    plot_xy_discrete_lable(time, y,"$Time, s$","$Signal?$")
+    plot_xy_continuous_lable(time, y,"$Time, s$","$y(t)$")
     saveas(gcf, path+'task'+string(task_number)+'_'+string(set_number)+'_'+'koc'+string(k)+'.png')
     set_number = set_number + 1;
     close all;
@@ -26,5 +26,5 @@ print('-smodel', '-dpdf', 'out/model')
 
 %%
 [time, y] = start_sim(0.535, 2);
-stairs(time, y)
+plot(time, y)
 100*(max(y) - y(50))
