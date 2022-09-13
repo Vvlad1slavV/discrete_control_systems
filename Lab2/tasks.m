@@ -71,4 +71,4 @@ end
 
 
 %% Save model as pdf
-% print('-smodel', '-dpdf', 'out/model')
+print('-smodel', '-dpdf', 'out/model')
