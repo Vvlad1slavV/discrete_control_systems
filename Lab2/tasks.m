@@ -48,12 +48,27 @@ set_number = 1;
 path = "out/";
 
 for k = KK'
-    [time, y] = start_sim(k(1), k(2), 4);
-    plot_xy_discrete_lable(time, y,"$Time, s$","$Signal?$")
-    saveas(gcf, path+'task'+string(task_number)+'_'+string(set_number)+'.png')
+    [time, y, dy] = start_sim(k(1), k(2), 4);
+    plot_xy_continuous_lable(time, y, "$Time, s$", "$y(t)$", false)
+    saveas(gcf, path+'task'+string(task_number)+'_'+string(set_number)+'y'+'_k1_'+string(k(1))+'k2_'+string(k(2))+'.png')
+    plot_xy_continuous_lable(time, dy, "$Time, s$", "$\dot{y}(t)$", false)
+    saveas(gcf, path+'task'+string(task_number)+'_'+string(set_number)+'dy'+'_k1_'+string(k(1))+'k2_'+string(k(2))+'.png')
+    set_number = set_number + 1;
+    close all;
+end
+%%
+task_number = 2;
+set_number = 1;
+y_0 = [-3 -2 -1 1 2 3];
+dy_0 = [0 0 0 0 0 0];
+for k = KK'
+    [time, y, dy] = start_sim(k(1), k(2), 4);
+    plot_xy_continuous_lable(y, dy, "$y(t)$", "$\dot{y}(t)$", true)
+    saveas(gcf, path+'task'+string(task_number)+'_'+string(set_number)+'_k1_'+string(k(1))+'k2_'+string(k(2))+'.png')
     set_number = set_number + 1;
     close all;
 end
 
+
 %% Save model as pdf
-print('-smodel', '-dpdf', 'out/model')
+% print('-smodel', '-dpdf', 'out/model')
