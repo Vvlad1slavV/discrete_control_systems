@@ -42,24 +42,21 @@ sim_out = sim("model2.slx", 0.3);
 time = sim_out.tout;
 y = sim_out.logsout.get("y").Values.Data;
 
-
 plot_step(time, y, "$Time, s$","$y(t)$", true)
+saveas(gcf, path+'y_step.png');
+close all;
+
+print('-smodel2', '-dpdf', 'out/model2')
 %%
 (max(y)-1)*100
 
 %%
 Yup = 1.05*ones(size(time'));
 Ydown = 0.95*ones(size(time'));
-Pup = InterX([time'; Yup],[time';y'])
-Pdown = InterX([time'; Ydown],[time';y'])
+Pup = InterX([time'; Yup],[time';y']);
+Pdown = InterX([time'; Ydown],[time';y']);
+P = sortrows([Pup Pdown]');
+Plast = P(end,:);
 plot(time,Yup,time,Ydown,time,y, Pup(1,:), Pup(2,:),'ro', Pdown(1,:), Pdown(2,:),'ro')
 %%
-t = linspace(0,2*pi);
-r1 = sin(4*t)+2; 
-x1 = t(1:2:end); y1 = 2*ones(size(t(1:2:end)));
-r2 = sin(8*t)+2; 
-x2 = t; y2 = r2.*sin(t);
-P = InterX([x1;y1],[x2;y2])
-plot(x1,y1,x2,y2,P(1,:),P(2,:),'ro')
-
 
